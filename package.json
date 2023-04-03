@@ -1,0 +1,52 @@
+{
+  "name": "lynx-cli",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A command line interface for generating project files for the Fovea Project.",
+  "main": "./lib/index.js",
+  "bin": {
+    "lynx": "./lib/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "create": "npm run build && npm run test",
+    "local": "npm run build && sudo npm uninstall -g && sudo npm install -g && lynx",
+    "npm:format": "",
+    "npm:upgrade": "npx npm-check-updates -iu",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node --esm' src/index.ts",
+    "test": "npm run build && sudo npm i -g && lynx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RalphMarvin/lynx.git"
+  },
+  "keywords": [
+    "CLI"
+  ],
+  "author": "Ralph Marvin Addo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RalphMarvin/lynx/issues"
+  },
+  "homepage": "https://github.com/RalphMarvin/lynx#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "clear": "^0.1.0",
+    "commander": "^10.0.0",
+    "figlet": "^1.5.2",
+    "fs-extra": "^11.1.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/figlet": "^1.5.5",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.15.11",
+    "depcheck": "^1.4.3",
+    "lerna": "^6.6.1",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  }
+}
