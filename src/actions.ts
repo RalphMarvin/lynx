@@ -4,28 +4,30 @@ import { Project } from "./project.js";
 import { FileManager } from "./file-manager.js";
 
 export class Actions {
-  private handleNonFoveaProject() {
-    const isFoveaProject = Common.verifyFoveaProject();
+  private handleNonLaravelProject() {
+    const isFoveaProject = Common.verifyIsLaravelProject();
     if (!isFoveaProject) {
       Console.screenSeparator(1);
-      Console.logWarning(`WARNING: Working directory is not a Fovea Project`);
+      Console.logWarning(`WARNING: Working directory is not a Laravel Project`);
       Console.logFailure(`Lynx is exiting with code 1`);
       return;
     }
   }
 
   private handleIsFoveaProject() {
-    const isFoveaProject = Common.verifyFoveaProject();
+    const isFoveaProject = Common.verifyIsLaravelProject();
     if (isFoveaProject) {
       Console.screenSeparator(1);
-      Console.logWarning(`WARNING: The current working directory is a fovea project. You cannot setup a new project in the current working directory`);
+      Console.logWarning(
+        `WARNING: The current working directory is a fovea project. You cannot setup a new project in the current working directory`
+      );
       Console.logFailure(`Lynx is exiting with code 1 `);
       return;
     }
   }
 
   async createModuleAction(moduleName: string, options: any) {
-    this.handleNonFoveaProject();
+    this.handleNonLaravelProject();
     const fileManager = new FileManager(moduleName);
 
     Console.screenSeparator(1);
@@ -34,11 +36,13 @@ export class Actions {
 
     await fileManager.createModule();
     Console.logSuccess(`Creation of module: ${moduleName} has been completed.`);
-    Console.logWarning("NOTE: Don't forget to add repositories bindings to the ff files:\n/Providers/AppServiceProvider.php\n/Providers/RepositoryServiceProvider.php");
+    Console.logWarning(
+      "NOTE: Don't forget to add repositories bindings to the ff files:\n/Providers/AppServiceProvider.php\n/Providers/RepositoryServiceProvider.php"
+    );
   }
 
   async resetProjectAction() {
-    this.handleNonFoveaProject();
+    this.handleNonLaravelProject();
     const projectManager = new Project();
 
     Console.screenSeparator(1);

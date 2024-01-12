@@ -1,4 +1,5 @@
 import File from "fs-extra";
+import { cwd } from "process";
 import { Artisan } from "./artisan.js";
 import { Console } from "./console.js";
 import { FileContent } from "./file-content.js";
@@ -55,33 +56,34 @@ export class FileManager {
     Console.logProgress(`Creating ${name}ServiceInterface.php ...`);
     const content = this.fileContent.getServiceInterfaceContents(name);
     await this.createFile(fileName, content);
-    Console.logSuccess(`File Created`);
+    Console.logSuccess(`✓ File Created`);
   }
 
   private async createRepositoryInterface(name: string, fileName: string) {
     Console.logProgress(`Creating ${name}RepositoryInterface.php ...`);
     const content = this.fileContent.getRepositoryInterfaceContents(name);
     await this.createFile(fileName, content);
-    Console.logSuccess(`File Created`);
+    Console.logSuccess(`✓ File Created`);
   }
 
   private async createRepository(name: string, fileName: string) {
     Console.logProgress(`Creating ${name}Repository.php ...`);
     const content = this.fileContent.getRepositoryContents(name);
     await this.createFile(fileName, content);
-    Console.logSuccess(`File Created`);
+    Console.logSuccess(`✓ File Created`);
   }
 
   private async createService(name: string, fileName: string) {
     Console.logProgress(`Creating ${name}Service.php ...`);
     const content = this.fileContent.getServiceContents(name);
     await this.createFile(fileName, content);
-    Console.logSuccess(`File Created`);
+    Console.logSuccess(`✓ File Created`);
   }
 
   private async createModel(name: string) {
+    console.log(`Current directory: ${cwd()}`);
     try {
-      await this.artisanCommander.executeArtisanCommands("make:model", `${name}Model -m`);
+      await this.artisanCommander.executeArtisanCommands("make:model", `${name} -m`);
     } catch (error) {
       Console.logFailure(`Artisan error: ${error}`);
     }
@@ -97,7 +99,7 @@ export class FileManager {
 
   private async createStoreRequest(name: string) {
     try {
-      await this.artisanCommander.executeArtisanCommands("make:request", `Store${name}Request`);
+      await this.artisanCommander.executeArtisanCommands("make:request", `Create${name}Request`);
     } catch (error) {
       Console.logFailure(`Artisan error: ${error}`);
     }
@@ -114,6 +116,7 @@ export class FileManager {
   private async createResource(name: string) {
     try {
       await this.artisanCommander.executeArtisanCommands("make:resource", `${name}Resource`);
+      await this.artisanCommander.executeArtisanCommands("make:resource", `List${name}Resource`);
     } catch (error) {
       Console.logFailure(`Artisan error: ${error}`);
     }

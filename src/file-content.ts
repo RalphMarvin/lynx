@@ -4,7 +4,7 @@ export class FileContent {
     namespace App\\Modules\\${name}\\Contracts;\n
     interface ${name}ServiceInterface
     {} \n
-    ?>`;
+    `;
   }
 
   getRepositoryInterfaceContents(name: string): string {
@@ -12,17 +12,17 @@ export class FileContent {
     namespace App\\Modules\\${name}\\Contracts; \n
     interface ${name}RepositoryInterface
     {} \n
-    ?>`;
+    `;
   }
 
   getRepositoryContents(name: string): string {
     return `<?php \n
     namespace App\\Modules\\${name}\\Repositories; \n
-    use App\\Modules\\Base\\Repositories\\BaseRepository;
+    use App\\Modules\\_Base\\Repositories\\BaseRepository;
     use App\\Modules\\${name}\\Contracts\\${name}RepositoryInterface; \n
     class ${name}Repository extends BaseRepository implements ${name}RepositoryInterface
     {} \n
-    ?>`;
+    `;
   }
 
   getServiceContents(name: string): string {
@@ -31,6 +31,6 @@ export class FileContent {
     use App\\Modules\\${name}\\Contracts\\${name}ServiceInterface; \n
     class ${name}Service implements ${name}ServiceInterface
     {} \n
-    ?>`;
+    `;
   }
 }
