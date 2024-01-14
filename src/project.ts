@@ -18,7 +18,7 @@ export class Project {
 
   private async gitCloneBranch(branch: string) {
     try {
-      Console.logProgress("Cloning fovea develop branch ...");
+      Console.logProgress("Cloning develop branch ...");
       await this.artisanCommander.executeCommand("git clone ", `-b ${branch}`);
       Console.logSuccess("Cloning completed successfully.");
     } catch (error) {
@@ -28,7 +28,7 @@ export class Project {
 
   private async changeDirectoryIntoProject() {
     try {
-      Console.logProgress("Changing directory into fovea ...");
+      Console.logProgress("Changing directory into project directory ...");
       const workingDirectory = process.cwd();
       process.chdir(`${workingDirectory}/fovea`);
       Console.logSuccess("Directory change completed successfully.");
@@ -139,7 +139,7 @@ export class Project {
   async setupProject() {
     try {
       await this.gitCloneBranch("develop");
-      await this.changeDirectoryIntoProject();
+      await this.changeDirectoryIntoProject(); // TODO: Needs work - provision of project name or path
       await this.runComposerInstall();
       await this.resetMigration();
       await this.installPassportWithUuids();

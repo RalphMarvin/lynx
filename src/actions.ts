@@ -5,8 +5,8 @@ import { FileManager } from "./file-manager.js";
 
 export class Actions {
   private handleNonLaravelProject() {
-    const isFoveaProject = Common.verifyIsLaravelProject();
-    if (!isFoveaProject) {
+    const isLaravelProject = Common.verifyIsLaravelProject();
+    if (!isLaravelProject) {
       Console.screenSeparator(1);
       Console.logWarning(`WARNING: Working directory is not a Laravel Project`);
       Console.logFailure(`Lynx is exiting with code 1`);
@@ -14,12 +14,12 @@ export class Actions {
     }
   }
 
-  private handleIsFoveaProject() {
-    const isFoveaProject = Common.verifyIsLaravelProject();
-    if (isFoveaProject) {
+  private handleIsLaravelProject() {
+    const isLaravelProject = Common.verifyIsLaravelProject();
+    if (isLaravelProject) {
       Console.screenSeparator(1);
       Console.logWarning(
-        `WARNING: The current working directory is a fovea project. You cannot setup a new project in the current working directory`
+        `WARNING: The current working directory is a Laravel project. You cannot setup a new project in the current working directory`
       );
       Console.logFailure(`Lynx is exiting with code 1 `);
       return;
@@ -54,7 +54,7 @@ export class Actions {
   }
 
   async reinitializeProjectAction() {
-    this.handleIsFoveaProject();
+    this.handleIsLaravelProject();
     const projectManager = new Project();
 
     Console.screenSeparator(1);
@@ -65,7 +65,7 @@ export class Actions {
   }
 
   async setupNewProjectAction() {
-    this.handleIsFoveaProject();
+    this.handleIsLaravelProject();
     const projectManager = new Project();
 
     Console.screenSeparator(1);
